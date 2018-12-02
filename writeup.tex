@@ -1,0 +1,88 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{natbib}
+
+\newcommand\aj{AJ}                   % Astronomical Journal (the)
+%SetFonts
+
+%SetFonts
+
+
+\title{A Distance Measurement to NGC 3923 Using a Type Ia Supernova}
+\author{K. Azalee Bostroem}
+%\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\section{Introduction}
+Measuring distances to astronomical object is challenging. 
+The distance to nearby objects can be measured by observing the apparent movement of the object against unmoving, more distant background objects over the course of a year.
+This geometric distance is the most reliable, however, it can only be used for objects in our galaxy, out to $\rm{\sim}$1000 parsecs.
+
+To determine the distance to objects outside of our galaxy, we rely on standard candles, objects whose intrinsic brightness can be determined by an observable, such as the peak brightness of a supernova (SN) or the period of variability of a Cepheid star. 
+By knowing the intrinsic brightness and the apparent brightness, the distance can be determined.
+Type Ia SNe (SNe Ia) are standardizable candles, meaning that they can be calibrated to be standard candles.
+SNe Ia are extremely bright explosions of white dwarf stars in binary systems, that have surpassed the Chandrasekhar limit (1.4 $\rm{M_{\odot}}$) through either mass transfer from a red giant companion or through a merger with a white dwarf companion.
+Due to the degenerate nature of white dwarfs, when the Chandrasekhar limit is exceeded, overcoming the electron degeneracy pressure, increase in temperature during the collapse is not halted by a corresponding change in pressure.
+This produces a runaway nuclear reaction that explodes the star as a SNe Ia, rapidly brightening on the sky and then slowly fading.
+The fact that SNe Ia are produced by thermonuclear explosions in white dwarfs with the same mass causes their light curves (brightness over time) to be nearly identical.
+For this reason, if we can calibrate the intrinsic brightness of one, we can measure the distance to any SNe Ia. 
+
+This calibration of the intrinsic brightness is performed using the distance ladder. 
+A geometric distance is used to calibrate the intrinsic brightness of Cepheid variable stars.
+Cepheid variable stars are then used to measure the distance to nearby galaxies that have hosted SNe Ia, allowing for their intrinsic brightness to be calculated.
+SNe Ia have an extremely bright ($\rm{M_{r} = -19.03 \pm 0.01}$; \citet{2010folatelli}) peak brightness and can be used to measure the distance to galaxies at $\rm{z>2}$.
+These measurements lead to the discovery of dark energy.
+
+In this report, we use SN 2018aoz, a SN Ia, to measure the distance to its host galaxy, NGC 3923.
+In Section \ref{LC} we determine the light curve of 2018aoz and in Section \ref{Dist} we use its peak brightness to determine the distance to NGC 3923.
+We conclude in Section \ref{conclusion}.
+
+\section{Light Curve Determination}\label{LC}
+Aperture photometry was performed on {\it r}-band images provided by Stefano Valenti (private communication) using {\tt photutils} \citep{2018bradley}. 
+We fit a 2D gaussian to the SN in each image and determine the median full width half maximum (FWHM) to be 6 pixels. 
+We use an aperture of 18 pixels, three times the FWHM.
+An annulus with an inner radius of 20 pixels and an outer radius of 24 pixels was used to determine the background.
+The background flux was scaled to the science aperture area and subtracted from the SN flux.
+
+Instrumental magnitudes were converted to apparent magnitudes using stars in the image that are also in the APASS catalog \footnote{https://www.aavso.org/apass}.
+Aperture photometry was performed on these stars using identical parameters to the SN photometry.
+The {\it r}-band zeropoint was then calculated for each observation as the sigma clipped mean and the error as the sigma clipped standard deviation.
+Points with errors greater than 0.5 magnitudes were excluded from the dataset.
+The light curve is plotted in Figure \ref{fig:LC}.
+\begin{figure}
+\includegraphics{light_curve}
+\caption{The light curve of 2018aoz (red circles). 
+The fit to the light curve is also plotted as a black line.\label{fig:LC}}
+\end{figure}
+
+\section{Distance to NGC 3923}\label{Dist}
+To determine the distance to NGC 3923, we must now find the peak apparent magnitude.
+We find a peak magnitude of 12.93 by fitting the light curve with a third order spline.
+Using an absolute magnitude of -$\rm{M_{r} = -19.03 \pm 0.01}$ \citep{2010folatelli} and correcting for galactic extinction, $\rm{A_{r}=0.228}$ we find a distance modulus of 
+\begin{equation}
+\mu = m_{r}-M_{r}-A_{r} = -31.73\pm0.01
+\end{equation}
+where $\rm{m_{r}}$ is the apparent {\it r}-band magnitude, $\rm{M_{r}}$ is the absolute {\it r}-band magnitude, and $\rm{A_{r}}$ is the {\it r}-band extinction of the Milky Way.
+We use the distance modulus equation:
+\begin{equation}
+d = 10^{\frac{\mu+5}{5}}
+\end{equation}
+where d is the distance in parsecs and $\rm{\mu}$ is the distance modulus, to determine a distance of $\rm{22.26 \pm 0.10}$ Mpc to NGC 3923.
+This value is not corrected for color or decline rate as such analysis is beyond the scope of this report.
+
+\section{Conclusion}\label{conclusion}
+In the report we determine the distance to NGC 3923 using SN 2018aoz as a standard candle.
+We find the brightness of the SN over time. 
+Fitting the light curve with a cubic spline, we find a peak brightness of 12.93, yielding a distance to NGC 3923 of $\rm{22.26 \pm 0.10}$ Mpc.
+
+\bibliography{references}
+\bibliographystyle{plain}
+
+\end{document}  
